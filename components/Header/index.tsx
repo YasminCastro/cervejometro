@@ -3,7 +3,7 @@
 import { Navbar } from "flowbite-react";
 
 import { PiBeerBottleDuotone } from "react-icons/pi";
-import FormModal from "../CalculateBeers/FormModal";
+import SettingsModal from "../SettingsModal";
 
 export default function HeaderDefault() {
   return (
@@ -17,7 +17,7 @@ export default function HeaderDefault() {
       <Navbar.Toggle className="hover:bg-transparent" />
       <Navbar.Collapse>
         <Navbar.Link className="hover:bg-transparent">
-          <FormModal />
+          <SettingsModal />
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
