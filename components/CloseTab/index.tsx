@@ -12,7 +12,7 @@ interface IProps {}
 export default function CloseTab({}: IProps) {
   const [openModal, setOpenModal] = useState<string | undefined>();
   const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
-  const [totalPeople, settotalPeople] = useLocalStorage("totalPeople", 1);
+  const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", 1);
   const [loading, setLoading] = useState(true);
   const [beer, setBeer] = useLocalStorage("beerTotal", 0);
   const [beerTotal, setBeerTotal] = useState(0);
@@ -99,6 +99,7 @@ export default function CloseTab({}: IProps) {
                   index={index}
                   inputs={inputs}
                   setInputs={setInputs}
+                  beer={beer}
                 />
               ))}
             </div>

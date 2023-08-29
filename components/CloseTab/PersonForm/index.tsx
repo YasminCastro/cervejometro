@@ -8,9 +8,15 @@ interface IProps {
   index: number;
   inputs: any[];
   setInputs: Dispatch<SetStateAction<any[]>>;
+  beer: number;
 }
 
-export default function PersonsForm({ index, inputs, setInputs }: IProps) {
+export default function PersonsForm({
+  index,
+  inputs,
+  setInputs,
+  beer,
+}: IProps) {
   const handleRemoveInput = (index: number) => {
     const newInputs = [...inputs];
     newInputs.splice(index, 1);
@@ -62,6 +68,7 @@ export default function PersonsForm({ index, inputs, setInputs }: IProps) {
             type="number"
             key={`${index}-first`}
             onChange={(e) => handleFirstChange(index, e)}
+            min={0}
           />
         </div>
         <div>
@@ -72,6 +79,7 @@ export default function PersonsForm({ index, inputs, setInputs }: IProps) {
             type="number"
             key={`${index}-last`}
             onChange={(e) => handleLastChange(index, e)}
+            max={beer}
           />
         </div>
       </div>
