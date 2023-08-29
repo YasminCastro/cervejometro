@@ -17,6 +17,7 @@ export default function PersonsForm({
   setInputs,
   beer,
 }: IProps) {
+  console.log(inputs);
   const handleRemoveInput = (index: number) => {
     const newInputs = [...inputs];
     newInputs.splice(index, 1);
@@ -52,6 +53,7 @@ export default function PersonsForm({
           className="w-full"
           key={`${index}-name`}
           onChange={(e) => handleNameChange(index, e)}
+          value={inputs[index].name}
         />
         <AiOutlineClose
           className="cursor-pointer"
@@ -69,6 +71,7 @@ export default function PersonsForm({
             key={`${index}-first`}
             onChange={(e) => handleFirstChange(index, e)}
             min={0}
+            value={inputs[index].first}
           />
         </div>
         <div>
@@ -80,6 +83,7 @@ export default function PersonsForm({
             key={`${index}-last`}
             onChange={(e) => handleLastChange(index, e)}
             max={beer}
+            value={inputs[index].last}
           />
         </div>
       </div>
