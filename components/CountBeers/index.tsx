@@ -18,19 +18,19 @@ export default function CountBeers({}: IProps) {
           color="warning"
           size="xl"
           onClick={() => {
-            setBeer(beer + 1);
+            setBeer(beer - 1);
           }}
         >
-          <FaPlus />
+          <FaMinus />
         </Button>
         <Button
           color="warning"
           size="xl"
           onClick={() => {
-            setBeer(beer - 1);
+            setBeer(beer + 1);
           }}
         >
-          <FaMinus />
+          <FaPlus />
         </Button>
       </Button.Group>
       <Button
