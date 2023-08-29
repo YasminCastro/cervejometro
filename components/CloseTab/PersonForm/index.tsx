@@ -1,7 +1,7 @@
 "use client";
 
 import { Label, TextInput } from "flowbite-react";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
 interface IProps {
@@ -11,10 +11,6 @@ interface IProps {
 }
 
 export default function PersonsForm({ index, inputs, setInputs }: IProps) {
-  useEffect(() => {
-    console.log(inputs);
-  }, [inputs]);
-
   const handleRemoveInput = (index: number) => {
     const newInputs = [...inputs];
     newInputs.splice(index, 1);
