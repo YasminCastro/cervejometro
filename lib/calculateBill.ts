@@ -41,5 +41,10 @@ export function calculateBill(
     });
   }
 
+  for (const name in individualBills) {
+    // Arredondar a conta para cada pessoa para duas casas decimais
+    individualBills[name] = parseFloat(individualBills[name].toFixed(2));
+  }
+
   return individualBills;
 }
