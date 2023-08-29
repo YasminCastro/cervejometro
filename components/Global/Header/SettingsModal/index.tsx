@@ -22,12 +22,13 @@ export default function SettingsModal({}: IProps) {
   const [tip, setTip] = useLocalStorage("tip", true);
   const [tipValue, setTipValue] = useLocalStorage("tipValue", 10);
   const [loading, setLoading] = useState(true);
+  const [isChecked, setIsChecked] = useState(tip);
 
   const props = { openModal, setOpenModal };
 
   useEffect(() => {
     setLoading(false);
-  }, [totalPeople, beerPrice]);
+  }, []);
 
   return (
     <>
@@ -82,7 +83,14 @@ export default function SettingsModal({}: IProps) {
 
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <Checkbox id="tip" defaultChecked={tip} />
+                  <Checkbox
+                    id="tip"
+                    defaultChecked={tip}
+                    onClick={(event) => {
+                      //@ts-ignore
+                      setIsChecked(event.target.checked);
+                    }}
+                  />
                   <Label htmlFor="tip">Calcular com a %?</Label>
                 </div>
                 <TextInput
@@ -103,7 +111,7 @@ export default function SettingsModal({}: IProps) {
                 color="warning"
                 onClick={() => {
                   props.setOpenModal(undefined);
-                  setTip(!tip);
+                  setTip(isChecked);
                 }}
               >
                 Salvar
