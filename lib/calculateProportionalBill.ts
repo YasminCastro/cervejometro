@@ -1,23 +1,7 @@
-class User {
+interface User {
   name: string;
   first: number; // cerveja na qual o usuário chegou
   last: number; // última cerveja que o usuário bebeu
-  tip: boolean; // última cerveja que o usuário bebeu
-  tipPercent: number; // última cerveja que o usuário bebeu
-
-  constructor(
-    name: string,
-    first: number,
-    last: number,
-    tip: boolean,
-    tipPercent: number
-  ) {
-    this.name = name;
-    this.first = first;
-    this.last = last;
-    this.tip = tip;
-    this.tipPercent = tipPercent;
-  }
 }
 
 export function calculateProportionalBill(

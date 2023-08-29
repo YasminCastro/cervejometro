@@ -19,16 +19,15 @@ export default function ProportionalBill({}: IProps) {
   const [loading, setLoading] = useState(true);
   const [beer, setBeer] = useLocalStorage("beerTotal", 0);
   const [beerTotal, setBeerTotal] = useState(0);
-  const [beerDivideTotal, setBeerDivideTotal] = useState(0);
   const [individualBills, setIndividualBills] = useState<{
     [key: string]: number;
   }>({});
-  const [inputs, setInputs] = useState<any[]>([]);
+  const [inputs, setInputs] = useState([{ name: "", first: 0, last: 0 }]);
 
   const props = { openModal, setOpenModal };
 
   useEffect(() => {
-    const [beerTotalPrice, beerDivideTotal] = calculateEqualBill(
+    const [beerTotalPrice] = calculateEqualBill(
       beer,
       beerPrice,
       tip,
@@ -37,12 +36,11 @@ export default function ProportionalBill({}: IProps) {
     );
 
     setBeerTotal(beerTotalPrice);
-    setBeerDivideTotal(beerDivideTotal);
     setLoading(false);
   }, [beerPrice, totalPeople, beer, tip, tipValue]);
 
   const handleAddInput = () => {
-    setInputs([...inputs, { name: "", first: 0, last: 0, total: 0 }]);
+    setInputs([...inputs, { name: "", first: 0, last: 0 }]);
   };
 
   const HandleCalc = () => {
@@ -72,7 +70,7 @@ export default function ProportionalBill({}: IProps) {
         popup
         onClose={() => props.setOpenModal(undefined)}
       >
-        <Modal.Header>Conta</Modal.Header>
+        <Modal.Header>Dividir conta proporcionalmente</Modal.Header>
         <Modal.Body>
           {loading ? (
             <Spinner aria-label="Warning spinner example" color="warning" />
@@ -83,15 +81,6 @@ export default function ProportionalBill({}: IProps) {
                   Total: {<FaDollarSign />} {beerTotal}
                 </p>
               </div>
-
-              <div>
-                <p className="flex items-center">
-                  Dividido por {totalPeople} pessoas: {<FaDollarSign />}
-                  {beerDivideTotal}
-                </p>
-              </div>
-
-              <hr></hr>
 
               {inputs.map((input, index) => (
                 <PersonsForm

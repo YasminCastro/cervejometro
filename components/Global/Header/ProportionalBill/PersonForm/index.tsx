@@ -69,7 +69,7 @@ export default function PersonsForm({
             type="number"
             key={`${index}-first`}
             onChange={(e) => handleFirstChange(index, e)}
-            min={0}
+            min={1}
             value={inputs[index].first}
           />
         </div>

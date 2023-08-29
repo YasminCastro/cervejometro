@@ -52,7 +52,7 @@ export default function EqualBill({}: IProps) {
         popup
         onClose={() => props.setOpenModal(undefined)}
       >
-        <Modal.Header>Dividir da conta igualmente</Modal.Header>
+        <Modal.Header>Dividir conta igualmente</Modal.Header>
         <Modal.Body>
           {loading ? (
             <Spinner aria-label="Warning spinner example" color="warning" />
