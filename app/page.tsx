@@ -9,7 +9,7 @@ import CalculateBeers from "@/components/CalculateBeers";
 export default function Home() {
   const [beer, setBeer] = useLocalStorage("beerTotal", 0);
   const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
-  const [people, setPeople] = useLocalStorage("people", 1);
+  const [totalPeople, settotalPeople] = useLocalStorage("totalPeople", 1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function Home() {
       ) : (
         <>
           <CountBeers />
-          <CalculateBeers beer={beer} />
+          <CalculateBeers />
         </>
       )}
     </div>

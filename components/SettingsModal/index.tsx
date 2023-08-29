@@ -8,17 +8,17 @@ import useLocalStorage from "use-local-storage";
 
 interface IProps {}
 
-export default function FormModal({}: IProps) {
+export default function SettingsModal({}: IProps) {
   const [openModal, setOpenModal] = useState<string | undefined>();
   const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
-  const [people, setPeople] = useLocalStorage("people", 1);
+  const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", 1);
   const [loading, setLoading] = useState(true);
 
   const props = { openModal, setOpenModal };
 
   useEffect(() => {
     setLoading(false);
-  }, [people, beerPrice]);
+  }, [totalPeople, beerPrice]);
 
   return (
     <>
@@ -61,11 +61,13 @@ export default function FormModal({}: IProps) {
                 <Label htmlFor="price" value="Qtd. de pessoas" />
                 <TextInput
                   icon={BsPeopleFill}
-                  id="people"
+                  id="totalPeople"
                   required
                   type="number"
-                  onChange={(event) => setPeople(parseInt(event.target.value))}
-                  defaultValue={people}
+                  onChange={(event) =>
+                    setTotalPeople(parseInt(event.target.value))
+                  }
+                  defaultValue={totalPeople}
                 />
               </div>
 

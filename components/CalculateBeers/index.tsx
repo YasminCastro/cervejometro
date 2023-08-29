@@ -6,23 +6,22 @@ import useLocalStorage from "use-local-storage";
 import { FaDollarSign } from "react-icons/fa";
 import { BsPeopleFill } from "react-icons/bs";
 
-interface IProps {
-  beer: number;
-}
+interface IProps {}
 
-export default function CalculateBeers({ beer }: IProps) {
+export default function CalculateBeers({}: IProps) {
   const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
-  const [people, setPeople] = useLocalStorage("people", 1);
+  const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", 1);
+  const [beer, setBeer] = useLocalStorage("beerTotal", 0);
   const [beerTotal, setBeerTotal] = useState(0);
   const [beerDivideTotal, setBeerDivideTotal] = useState(0);
 
   useEffect(() => {
     setBeerTotal(beer * beerPrice);
-    setBeerDivideTotal((beer * beerPrice) / people);
-  }, [beerPrice, people, beer]);
+    setBeerDivideTotal((beer * beerPrice) / totalPeople);
+  }, [beerPrice, totalPeople, beer]);
 
   return (
-    <div className="flex flex-row gap-4 mt-10">
+    <div className="flex flex-row gap-4">
       <Badge color="warning" icon={FaDollarSign} size="sm" className="px-3">
         R${beerTotal}
       </Badge>

@@ -4,6 +4,7 @@ import { Navbar } from "flowbite-react";
 
 import { PiBeerBottleDuotone } from "react-icons/pi";
 import SettingsModal from "../SettingsModal";
+import CloseTab from "../CloseTab";
 
 export default function HeaderDefault() {
   return (
@@ -16,6 +17,9 @@ export default function HeaderDefault() {
       </Navbar.Brand>
       <Navbar.Toggle className="hover:bg-transparent" />
       <Navbar.Collapse>
+        <Navbar.Link className="hover:bg-transparent">
+          <CloseTab />
+        </Navbar.Link>
         <Navbar.Link className="hover:bg-transparent">
           <SettingsModal />
         </Navbar.Link>

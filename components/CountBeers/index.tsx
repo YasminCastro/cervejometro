@@ -10,7 +10,7 @@ export default function CountBeers({}: IProps) {
   const [beer, setBeer] = useLocalStorage("beerTotal", 0);
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 mb-10">
       <p className="text-4xl bold">{beer}</p>
 
       <Button.Group>
