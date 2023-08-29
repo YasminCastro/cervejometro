@@ -3,8 +3,8 @@
 import { Navbar } from "flowbite-react";
 
 import { PiBeerBottleDuotone } from "react-icons/pi";
-import SettingsModal from "../SettingsModal";
-import CloseTab from "../CloseTab";
+import SettingsModal from "../../SettingsModal";
+import CloseTab from "../../CloseTab";
 
 export default function HeaderDefault() {
   return (
