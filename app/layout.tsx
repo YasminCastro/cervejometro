@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import Header from "@/components/Global/Header";
 
 const inter = Inter({ subsets: ["latin"] });
+//
 
 export const metadata: Metadata = {
   title: "Cervejometro",
