@@ -81,14 +81,12 @@ export default function CloseTab({}: IProps) {
               <hr></hr>
 
               {inputs.map((input, index) => (
-                <div>
-                  <PersonsForm
-                    index={index}
-                    inputs={inputs}
-                    setInputs={setInputs}
-                    beer={beer}
-                  />
-                </div>
+                <PersonsForm
+                  index={index}
+                  inputs={inputs}
+                  setInputs={setInputs}
+                  beer={beer}
+                />
               ))}
 
               <div className="flex justify-around max-sm:flex-col max-sm:gap-2">

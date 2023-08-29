@@ -17,7 +17,6 @@ export default function PersonsForm({
   setInputs,
   beer,
 }: IProps) {
-  console.log(inputs);
   const handleRemoveInput = (index: number) => {
     const newInputs = [...inputs];
     newInputs.splice(index, 1);
