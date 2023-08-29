@@ -19,7 +19,6 @@ export default function CalculateBeers({ beer }: IProps) {
   useEffect(() => {
     setBeerTotal(beer * beerPrice);
     setBeerDivideTotal((beer * beerPrice) / people);
-    console.log((beer * beerPrice) / people);
   }, [beerPrice, people, beer]);
 
   return (
