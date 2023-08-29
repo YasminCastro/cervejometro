@@ -8,8 +8,6 @@ interface IProps {}
 
 export default function CountBeers({}: IProps) {
   const [beer, setBeer] = useLocalStorage("beerTotal", 0);
-  const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
-  const [people, setPeople] = useLocalStorage("people", 1);
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -40,8 +38,6 @@ export default function CountBeers({}: IProps) {
         size="sm"
         onClick={() => {
           setBeer(0);
-          setBeerPrice(0);
-          setPeople(1);
         }}
       >
         Resetar
