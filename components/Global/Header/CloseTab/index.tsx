@@ -46,7 +46,13 @@ export default function CloseTab({}: IProps) {
   };
 
   const HandleCalc = () => {
-    const individualBills = calculateProportionalBill(inputs, beer, beerPrice);
+    const individualBills = calculateProportionalBill(
+      inputs,
+      beer,
+      beerPrice,
+      tip,
+      tipValue
+    );
     setIndividualBills(individualBills);
   };
 
