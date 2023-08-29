@@ -60,7 +60,9 @@ export function calculateProportionalBill(
     if (tip) {
       const tipParsed = tipPercent / 100;
       const totalTip = individualBills[name] * tipParsed;
-      individualBills[name] = individualBills[name] + totalTip;
+      individualBills[name] = parseFloat(
+        (individualBills[name] + totalTip).toFixed(2)
+      );
     }
   }
 

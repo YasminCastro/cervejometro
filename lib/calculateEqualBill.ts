@@ -9,7 +9,7 @@ const calculateEqualBill = (
   if (tip) {
     const tipParsed = tipPercent / 100;
     const totalTip = beerTotalPrice * tipParsed;
-    beerTotalPrice = beerTotalPrice + totalTip;
+    beerTotalPrice = parseFloat((beerTotalPrice + totalTip).toFixed(2));
   }
   const beerDivideTotal = parseFloat((beerTotalPrice / totalPeople).toFixed(2));
 
