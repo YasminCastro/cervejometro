@@ -73,8 +73,7 @@ export default function CloseTab({}: IProps) {
 
               <div>
                 <p className="flex items-center">
-                  Dividido igualmente por {totalPeople} pessoas:{" "}
-                  {<FaDollarSign />}
+                  Dividido por {totalPeople} pessoas: {<FaDollarSign />}
                   {beerDivideTotal}
                 </p>
               </div>
@@ -92,7 +91,7 @@ export default function CloseTab({}: IProps) {
                 </div>
               ))}
 
-              <div className="flex justify-around">
+              <div className="flex justify-around max-sm:flex-col max-sm:gap-2">
                 <Button color="warning" onClick={handleAddInput}>
                   Adicionar pessoa
                 </Button>
