@@ -10,7 +10,7 @@ import calculateEqualBill from "@/lib/calculateEqualBill";
 
 interface IProps {}
 
-export default function CloseTab({}: IProps) {
+export default function ProportionalBill({}: IProps) {
   const [openModal, setOpenModal] = useState<string | undefined>();
   const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
   const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", 1);
@@ -64,7 +64,7 @@ export default function CloseTab({}: IProps) {
         className="bg-transparent"
         size="sm"
       >
-        Fechar Conta
+        Dividir proporcionalmente
       </Button>
       <Modal
         show={props.openModal === "form-elements"}
