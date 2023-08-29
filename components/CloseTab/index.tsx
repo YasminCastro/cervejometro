@@ -41,7 +41,6 @@ export default function CloseTab({}: IProps) {
   const HandleCalc = () => {
     const individualBills = calculateBill(inputs, beer, beerPrice);
     setIndividualBills(individualBills);
-    console.log(individualBills);
   };
 
   return (
@@ -60,7 +59,7 @@ export default function CloseTab({}: IProps) {
         popup
         onClose={() => props.setOpenModal(undefined)}
       >
-        <Modal.Header>Conta divida igualmente</Modal.Header>
+        <Modal.Header>Conta</Modal.Header>
         <Modal.Body>
           {loading ? (
             <Spinner aria-label="Warning spinner example" color="warning" />
@@ -80,28 +79,39 @@ export default function CloseTab({}: IProps) {
                 </p>
               </div>
 
-              <div>
-                {Object.entries(individualBills).map(([key, value]) => {
-                  return <div key={key}>{`${key}: R$${value}`}</div>;
-                })}
-              </div>
-
               <hr></hr>
-              <Button color="warning" onClick={handleAddInput}>
-                Adicionar pessoa
-              </Button>
-              <Button color="warning" onClick={HandleCalc}>
-                Calcular
-              </Button>
 
               {inputs.map((input, index) => (
-                <PersonsForm
-                  index={index}
-                  inputs={inputs}
-                  setInputs={setInputs}
-                  beer={beer}
-                />
+                <div>
+                  <PersonsForm
+                    index={index}
+                    inputs={inputs}
+                    setInputs={setInputs}
+                    beer={beer}
+                  />
+                </div>
               ))}
+
+              <div className="flex justify-around">
+                <Button color="warning" onClick={handleAddInput}>
+                  Adicionar pessoa
+                </Button>
+                <Button color="warning" onClick={HandleCalc}>
+                  Calcular
+                </Button>
+              </div>
+
+              <div>
+                {Object.keys(individualBills).length > 0 && (
+                  <p className="text-lg font-bold">
+                    Dividido proporcionalmente:
+                  </p>
+                )}
+
+                {Object.entries(individualBills).map(([key, value]) => (
+                  <div key={key}>{`${key}: R$${value}`}</div>
+                ))}
+              </div>
             </div>
           )}
         </Modal.Body>
