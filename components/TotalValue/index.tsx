@@ -9,7 +9,7 @@ import calculateTip from "@/lib/calculateTip";
 
 interface IProps {}
 
-export default function CalculateBeers({}: IProps) {
+export default function TotalValue({}: IProps) {
   const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
   const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", 1);
   const [beer, setBeer] = useLocalStorage("beerTotal", 0);

@@ -6,7 +6,7 @@ import useLocalStorage from "use-local-storage";
 
 interface IProps {}
 
-export default function CountBeers({}: IProps) {
+export default function AddBeers({}: IProps) {
   const [beer, setBeer] = useLocalStorage("beerTotal", 0);
 
   return (

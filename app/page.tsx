@@ -2,9 +2,9 @@
 
 import useLocalStorage from "use-local-storage";
 import { useEffect, useState } from "react";
-import CountBeers from "@/components/CountBeers";
+import AddBeers from "@/components/AddBeers";
 import { Spinner } from "flowbite-react";
-import CalculateBeers from "@/components/CalculateBeers";
+import TotalValue from "@/components/TotalValue";
 
 export default function Home() {
   const [beer, setBeer] = useLocalStorage("beerTotal", 0);
@@ -22,8 +22,8 @@ export default function Home() {
         <Spinner aria-label="Warning spinner example" color="warning" />
       ) : (
         <>
-          <CountBeers />
-          <CalculateBeers />
+          <AddBeers />
+          <TotalValue />
         </>
       )}
     </div>
