@@ -86,6 +86,7 @@ export default function CloseTab({}: IProps) {
                   inputs={inputs}
                   setInputs={setInputs}
                   beer={beer}
+                  key={index}
                 />
               ))}
 

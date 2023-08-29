@@ -42,7 +42,7 @@ export default function PersonsForm({
   };
 
   return (
-    <div key={index}>
+    <div>
       <Label htmlFor="name" value="Nome" />
       <div className="flex items-center gap-3">
         <TextInput
