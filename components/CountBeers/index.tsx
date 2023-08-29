@@ -2,13 +2,15 @@
 
 import { Button } from "flowbite-react";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import useLocalStorage from "use-local-storage";
 
-interface IProps {
-  beer: number;
-  setBeer: any;
-}
+interface IProps {}
 
-export default function CountBeers({ beer, setBeer }: IProps) {
+export default function CountBeers({}: IProps) {
+  const [beer, setBeer] = useLocalStorage("beerTotal", 0);
+  const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
+  const [people, setPeople] = useLocalStorage("people", 1);
+
   return (
     <div className="flex flex-col items-center gap-4">
       <p className="text-4xl bold">{beer}</p>
@@ -38,6 +40,8 @@ export default function CountBeers({ beer, setBeer }: IProps) {
         size="sm"
         onClick={() => {
           setBeer(0);
+          setBeerPrice(0);
+          setPeople(1);
         }}
       >
         Resetar
