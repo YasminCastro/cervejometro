@@ -1,11 +1,11 @@
 "use client";
 
-import { Button, Label, Modal, Spinner, TextInput } from "flowbite-react";
+import { Button, Modal, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { FaDollarSign } from "react-icons/fa";
 import useLocalStorage from "use-local-storage";
 import PersonsForm from "./PersonForm";
-import { calculateBill } from "@/lib/calculateBill";
+import { calculateProportionalBill } from "@/lib/calculateProportionalBill";
 
 interface IProps {}
 
@@ -39,7 +39,7 @@ export default function CloseTab({}: IProps) {
   };
 
   const HandleCalc = () => {
-    const individualBills = calculateBill(inputs, beer, beerPrice);
+    const individualBills = calculateProportionalBill(inputs, beer, beerPrice);
     setIndividualBills(individualBills);
   };
 

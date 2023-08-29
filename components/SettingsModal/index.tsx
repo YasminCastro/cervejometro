@@ -1,9 +1,16 @@
 "use client";
 
-import { Button, Label, Modal, Spinner, TextInput } from "flowbite-react";
+import {
+  Button,
+  Checkbox,
+  Label,
+  Modal,
+  Spinner,
+  TextInput,
+} from "flowbite-react";
 import { useEffect, useState } from "react";
 import { FaDollarSign } from "react-icons/fa";
-import { BsPeopleFill } from "react-icons/bs";
+import { BsPeopleFill, BsPercent } from "react-icons/bs";
 import useLocalStorage from "use-local-storage";
 
 interface IProps {}
@@ -12,6 +19,8 @@ export default function SettingsModal({}: IProps) {
   const [openModal, setOpenModal] = useState<string | undefined>();
   const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
   const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", 1);
+  const [tip, setTip] = useLocalStorage("tip", true);
+  const [tipValue, setTipValue] = useLocalStorage("tipValue", 10);
   const [loading, setLoading] = useState(true);
 
   const props = { openModal, setOpenModal };
@@ -58,7 +67,7 @@ export default function SettingsModal({}: IProps) {
               </div>
 
               <div>
-                <Label htmlFor="price" value="Qtd. de pessoas" />
+                <Label htmlFor="totalPeople" value="Qtd. de pessoas" />
                 <TextInput
                   icon={BsPeopleFill}
                   id="totalPeople"
@@ -71,10 +80,30 @@ export default function SettingsModal({}: IProps) {
                 />
               </div>
 
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Checkbox id="tip" defaultChecked={tip} />
+                  <Label htmlFor="tip">Calcular com a %?</Label>
+                </div>
+                <TextInput
+                  rightIcon={BsPercent}
+                  id="tipValue"
+                  required
+                  type="number"
+                  onChange={(event) =>
+                    setTipValue(parseInt(event.target.value))
+                  }
+                  defaultValue={tipValue}
+                  min={1}
+                  max={100}
+                />
+              </div>
+
               <Button
                 color="warning"
                 onClick={() => {
                   props.setOpenModal(undefined);
+                  setTip(!tip);
                 }}
               >
                 Salvar

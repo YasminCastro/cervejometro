@@ -10,7 +10,7 @@ class User {
   }
 }
 
-export function calculateBill(
+export function calculateProportionalBill(
   users: User[],
   totalBeers: number,
   beerCost: number

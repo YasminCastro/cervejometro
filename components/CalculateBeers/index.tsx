@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import useLocalStorage from "use-local-storage";
 import { FaDollarSign } from "react-icons/fa";
 import { BsPeopleFill } from "react-icons/bs";
+import calculateTip from "@/lib/calculateTip";
 
 interface IProps {}
 
@@ -12,12 +13,18 @@ export default function CalculateBeers({}: IProps) {
   const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
   const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", 1);
   const [beer, setBeer] = useLocalStorage("beerTotal", 0);
+  const [tip, setTip] = useLocalStorage("tip", true);
+  const [tipValue, setTipValue] = useLocalStorage("tipValue", 10);
   const [beerTotal, setBeerTotal] = useState(0);
   const [beerDivideTotal, setBeerDivideTotal] = useState(0);
 
   useEffect(() => {
-    const beerTotal = beer * beerPrice;
-    const beerDivideTotal = (beer * beerPrice) / totalPeople;
+    let beerTotal = beer * beerPrice;
+    if (tip) {
+      beerTotal = calculateTip(beerTotal, tipValue);
+      console.log(beerTotal);
+    }
+    const beerDivideTotal = beerTotal / totalPeople;
     setBeerTotal(parseFloat(beerTotal.toFixed(2)));
     setBeerDivideTotal(parseFloat(beerDivideTotal.toFixed(2)));
   }, [beerPrice, totalPeople, beer]);
