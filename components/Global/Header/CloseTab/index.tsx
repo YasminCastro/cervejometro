@@ -6,6 +6,7 @@ import { FaDollarSign } from "react-icons/fa";
 import useLocalStorage from "use-local-storage";
 import PersonsForm from "./PersonForm";
 import { calculateProportionalBill } from "@/lib/calculateProportionalBill";
+import calculateEqualBill from "@/lib/calculateEqualBill";
 
 interface IProps {}
 
@@ -13,6 +14,8 @@ export default function CloseTab({}: IProps) {
   const [openModal, setOpenModal] = useState<string | undefined>();
   const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
   const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", 1);
+  const [tip, setTip] = useLocalStorage("tip", true);
+  const [tipValue, setTipValue] = useLocalStorage("tipValue", 10);
   const [loading, setLoading] = useState(true);
   const [beer, setBeer] = useLocalStorage("beerTotal", 0);
   const [beerTotal, setBeerTotal] = useState(0);
@@ -22,17 +25,21 @@ export default function CloseTab({}: IProps) {
   }>({});
   const [inputs, setInputs] = useState<any[]>([]);
 
-  useEffect(() => {
-    console.log(inputs);
-  }, [inputs]);
-
   const props = { openModal, setOpenModal };
 
   useEffect(() => {
-    setBeerTotal(beer * beerPrice);
-    setBeerDivideTotal((beer * beerPrice) / totalPeople);
+    const [beerTotalPrice, beerDivideTotal] = calculateEqualBill(
+      beer,
+      beerPrice,
+      tip,
+      tipValue,
+      totalPeople
+    );
+
+    setBeerTotal(beerTotalPrice);
+    setBeerDivideTotal(beerDivideTotal);
     setLoading(false);
-  }, [beerPrice, totalPeople, beer]);
+  }, [beerPrice, totalPeople, beer, tip, tipValue]);
 
   const handleAddInput = () => {
     setInputs([...inputs, { name: "", first: 0, last: 0, total: 0 }]);

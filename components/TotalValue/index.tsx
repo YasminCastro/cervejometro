@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import useLocalStorage from "use-local-storage";
 import { FaDollarSign } from "react-icons/fa";
 import { BsPeopleFill } from "react-icons/bs";
-import calculateTip from "@/lib/calculateTip";
+import calculateEqualBill from "@/lib/calculateEqualBill";
 
 interface IProps {}
 
@@ -19,15 +19,17 @@ export default function TotalValue({}: IProps) {
   const [beerDivideTotal, setBeerDivideTotal] = useState(0);
 
   useEffect(() => {
-    let beerTotal = beer * beerPrice;
-    if (tip) {
-      beerTotal = calculateTip(beerTotal, tipValue);
-      console.log(beerTotal);
-    }
-    const beerDivideTotal = beerTotal / totalPeople;
-    setBeerTotal(parseFloat(beerTotal.toFixed(2)));
-    setBeerDivideTotal(parseFloat(beerDivideTotal.toFixed(2)));
-  }, [beerPrice, totalPeople, beer]);
+    const [beerTotalPrice, beerDivideTotal] = calculateEqualBill(
+      beer,
+      beerPrice,
+      tip,
+      tipValue,
+      totalPeople
+    );
+
+    setBeerTotal(beerTotalPrice);
+    setBeerDivideTotal(beerDivideTotal);
+  }, [beerPrice, totalPeople, beer, tip, tipValue]);
 
   return (
     <div className="flex flex-row gap-4">
