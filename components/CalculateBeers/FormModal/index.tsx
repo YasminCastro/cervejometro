@@ -25,6 +25,8 @@ export default function FormModal({}: IProps) {
       <Button
         onClick={() => props.setOpenModal("form-elements")}
         color="warning"
+        className="bg-transparent"
+        size="sm"
       >
         Configurações
       </Button>
