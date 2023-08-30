@@ -44,7 +44,6 @@ export default function SettingsModal() {
     tipValue,
     beerPrice,
   }) => {
-    console.log(tipChecked, totalPeople, tipValue, beerPrice);
     setTip(tipChecked);
     setBeerPrice(parseFloat(beerPrice));
     setTotalPeople(parseInt(totalPeople));

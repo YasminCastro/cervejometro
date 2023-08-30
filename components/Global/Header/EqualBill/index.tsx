@@ -6,6 +6,7 @@ import { FaDollarSign } from "react-icons/fa";
 import useLocalStorage from "use-local-storage";
 import calculateEqualBill from "@/lib/calculateEqualBill";
 import { BsPeopleFill } from "react-icons/bs";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 interface IProps {}
 
@@ -22,6 +23,10 @@ export default function EqualBill({}: IProps) {
 
   const props = { openModal, setOpenModal };
 
+  type Inputs = {
+    totalPeople: any;
+  };
+
   useEffect(() => {
     const [beerTotalPrice, beerDivideTotal] = calculateEqualBill(
       beer,
@@ -35,6 +40,16 @@ export default function EqualBill({}: IProps) {
     setBeerDivideTotal(beerDivideTotal);
     setLoading(false);
   }, [beerPrice, totalPeople, beer, tip, tipValue]);
+
+  const { register, handleSubmit } = useForm<Inputs>({
+    defaultValues: {
+      totalPeople,
+    },
+  });
+
+  const onSubmit: SubmitHandler<Inputs> = ({ totalPeople }) => {
+    setTotalPeople(parseInt(totalPeople));
+  };
 
   return (
     <>
@@ -57,7 +72,7 @@ export default function EqualBill({}: IProps) {
           {loading ? (
             <Spinner aria-label="Warning spinner example" color="warning" />
           ) : (
-            <div className="space-y-6 ">
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <p className="flex items-center">
                   Total: {<FaDollarSign />} {beerTotal}
@@ -78,14 +93,15 @@ export default function EqualBill({}: IProps) {
                   id="totalPeople"
                   required
                   type="number"
-                  onChange={(event) =>
-                    setTotalPeople(parseInt(event.target.value))
-                  }
                   defaultValue={totalPeople}
+                  {...register("totalPeople")}
                   min={1}
                 />
               </div>
-            </div>
+              <Button type="submit" color="warning">
+                Calcular
+              </Button>
+            </form>
           )}
         </Modal.Body>
       </Modal>
