@@ -14,8 +14,6 @@ import { BsPeopleFill, BsPercent } from "react-icons/bs";
 import useLocalStorage from "use-local-storage";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-interface IProps {}
-
 type Inputs = {
   beerPrice: string;
   totalPeople: string;
@@ -23,7 +21,7 @@ type Inputs = {
   tip: boolean;
 };
 
-export default function SettingsModal({}: IProps) {
+export default function SettingsModal() {
   const [openModal, setOpenModal] = useState<string | undefined>();
   const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", "0");
   const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", "1");
