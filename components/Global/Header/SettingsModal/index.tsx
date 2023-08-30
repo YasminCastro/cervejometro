@@ -12,17 +12,47 @@ import { useEffect, useState } from "react";
 import { FaDollarSign } from "react-icons/fa";
 import { BsPeopleFill, BsPercent } from "react-icons/bs";
 import useLocalStorage from "use-local-storage";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 interface IProps {}
 
+type Inputs = {
+  beerPrice: string;
+  totalPeople: string;
+  tipValue: string;
+  tip: boolean;
+};
+
 export default function SettingsModal({}: IProps) {
   const [openModal, setOpenModal] = useState<string | undefined>();
-  const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
-  const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", 1);
+  const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", "0");
+  const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", "1");
   const [tip, setTip] = useLocalStorage("tip", true);
-  const [tipValue, setTipValue] = useLocalStorage("tipValue", 10);
+  const [tipValue, setTipValue] = useLocalStorage("tipValue", "10");
   const [loading, setLoading] = useState(true);
-  const [isChecked, setIsChecked] = useState(tip);
+
+  const { register, handleSubmit } = useForm<Inputs>({
+    defaultValues: {
+      beerPrice,
+      tipValue,
+      totalPeople,
+      tip,
+    },
+  });
+
+  const onSubmit: SubmitHandler<Inputs> = ({
+    tip: tipChecked,
+    totalPeople,
+    tipValue,
+    beerPrice,
+  }) => {
+    setTip(tipChecked);
+    setBeerPrice(beerPrice);
+    setTotalPeople(totalPeople);
+    setTipValue(tipValue);
+
+    props.setOpenModal(undefined);
+  };
 
   const props = { openModal, setOpenModal };
 
@@ -51,7 +81,7 @@ export default function SettingsModal({}: IProps) {
           {loading ? (
             <Spinner aria-label="Warning spinner example" color="warning" />
           ) : (
-            <div className="space-y-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div>
                 <Label htmlFor="price" value="Valor da cerveja" />
                 <TextInput
@@ -60,10 +90,8 @@ export default function SettingsModal({}: IProps) {
                   required
                   type="number"
                   step="0.10"
-                  onChange={(event) =>
-                    setBeerPrice(parseFloat(event.target.value))
-                  }
                   defaultValue={beerPrice}
+                  {...register("beerPrice")}
                 />
               </div>
 
@@ -74,10 +102,9 @@ export default function SettingsModal({}: IProps) {
                   id="totalPeople"
                   required
                   type="number"
-                  onChange={(event) =>
-                    setTotalPeople(parseInt(event.target.value))
-                  }
                   defaultValue={totalPeople}
+                  {...register("totalPeople")}
+                  min={1}
                 />
               </div>
 
@@ -86,10 +113,7 @@ export default function SettingsModal({}: IProps) {
                   <Checkbox
                     id="tip"
                     defaultChecked={tip}
-                    onClick={(event) => {
-                      //@ts-ignore
-                      setIsChecked(event.target.checked);
-                    }}
+                    {...register("tip")}
                   />
                   <Label htmlFor="tip">Calcular com a %?</Label>
                 </div>
@@ -98,25 +122,17 @@ export default function SettingsModal({}: IProps) {
                   id="tipValue"
                   required
                   type="number"
-                  onChange={(event) =>
-                    setTipValue(parseInt(event.target.value))
-                  }
                   defaultValue={tipValue}
                   min={1}
                   max={100}
+                  {...register("tipValue")}
                 />
               </div>
 
-              <Button
-                color="warning"
-                onClick={() => {
-                  props.setOpenModal(undefined);
-                  setTip(isChecked);
-                }}
-              >
+              <Button type="submit" color="warning">
                 Salvar
               </Button>
-            </div>
+            </form>
           )}
         </Modal.Body>
       </Modal>
