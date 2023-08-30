@@ -69,8 +69,8 @@ export default function PersonsForm({
             type="number"
             key={`${index}-first`}
             onChange={(e) => handleFirstChange(index, e)}
-            min={1}
             value={inputs[index].first}
+            min={1}
           />
         </div>
         <div>
@@ -81,7 +81,7 @@ export default function PersonsForm({
             type="number"
             key={`${index}-last`}
             onChange={(e) => handleLastChange(index, e)}
-            max={beer}
+            min={1}
             value={inputs[index].last}
           />
         </div>
