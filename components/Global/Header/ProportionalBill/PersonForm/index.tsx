@@ -8,15 +8,9 @@ interface IProps {
   index: number;
   inputs: any[];
   setInputs: Dispatch<SetStateAction<any[]>>;
-  beer: number;
 }
 
-export default function PersonsForm({
-  index,
-  inputs,
-  setInputs,
-  beer,
-}: IProps) {
+export default function PersonsForm({ index, inputs, setInputs }: IProps) {
   const handleRemoveInput = (index: number) => {
     const newInputs = [...inputs];
     newInputs.splice(index, 1);

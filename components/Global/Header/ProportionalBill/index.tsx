@@ -87,7 +87,6 @@ export default function ProportionalBill({}: IProps) {
                   index={index}
                   inputs={inputs}
                   setInputs={setInputs}
-                  beer={beer}
                   key={index}
                 />
               ))}
