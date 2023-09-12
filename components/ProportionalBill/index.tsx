@@ -174,8 +174,7 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
             <div className="mt-2">
               <div className="flex items-center gap-2">
                 <Label value="Pessoas" className="font-bold text-lg" />
-
-                <Tooltip content="A Primeira é a primeira cerveja que a pessoa começou a beber. A Última é a ultima cerveja que a pessoa bebeu.">
+                <Tooltip content="Preencha com o nome da pessoa, o número da primeira ceveja que ela bebeu e o número da última cerveja que ela bebeu.">
                   <BiInfoCircle className="cursor-pointer" size={24} />
                 </Tooltip>
               </div>
@@ -198,15 +197,14 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
               </Button>
             </div>
           </form>
-          {beerTab !== 0 && (
-            <div className="mt-4">
-              <p className="flex items-center">
-                Total: {<FaDollarSign />} {beerTab}
-              </p>
-            </div>
-          )}
-          {proportionalTab && (
+
+          {Object.keys(proportionalTab).length > 0 && (
             <div>
+              <div className="mt-4">
+                <p className="flex items-center">
+                  Total: {<FaDollarSign />} {beerTab}
+                </p>
+              </div>
               {Object.keys(proportionalTab).length > 0 && (
                 <p className="text-lg font-bold">Dividido proporcionalmente:</p>
               )}
@@ -219,7 +217,9 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
                   {Object.entries(proportionalTab).map(([key, value]) => (
                     <Table.Row key={key}>
                       <Table.Cell>{key}</Table.Cell>
-                      <Table.Cell>{value}</Table.Cell>
+                      <Table.Cell className="flex items-center">
+                        {<FaDollarSign />} {value}
+                      </Table.Cell>
                     </Table.Row>
                   ))}
                 </Table.Body>
