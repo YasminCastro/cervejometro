@@ -56,10 +56,9 @@ export default function EqualBill({}: IProps) {
       <Button
         onClick={() => props.setOpenModal("form-elements")}
         color="warning"
-        className="bg-transparent"
         size="sm"
       >
-        Dividir igualmente
+        Igualmente
       </Button>
       <Modal
         show={props.openModal === "form-elements"}

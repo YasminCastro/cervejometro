@@ -59,10 +59,9 @@ export default function ProportionalBill({}: IProps) {
       <Button
         onClick={() => props.setOpenModal("form-elements")}
         color="warning"
-        className="bg-transparent"
         size="sm"
       >
-        Dividir proporcionalmente
+        Proporcionalmente
       </Button>
       <Modal
         show={props.openModal === "form-elements"}
