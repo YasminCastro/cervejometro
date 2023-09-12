@@ -7,7 +7,7 @@ import useLocalStorage from "use-local-storage";
 interface IProps {}
 
 export default function AddBeers({}: IProps) {
-  const [beer, setBeer] = useLocalStorage("beerTotal", 0);
+  const [beer, setBeer] = useLocalStorage("beerCount", 0);
 
   return (
     <div className="flex flex-col items-center gap-4 mb-10">

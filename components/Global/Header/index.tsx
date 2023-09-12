@@ -4,8 +4,6 @@ import { Navbar } from "flowbite-react";
 
 import { PiBeerBottleDuotone } from "react-icons/pi";
 import SettingsModal from "./SettingsModal";
-import ProportionalBill from "./ProportionalBill";
-import EqualBill from "../../EqualBill";
 
 export default function HeaderDefault() {
   return (
@@ -18,12 +16,6 @@ export default function HeaderDefault() {
       </Navbar.Brand>
       <Navbar.Toggle className="hover:bg-transparent" />
       <Navbar.Collapse>
-        <Navbar.Link className="hover:bg-transparent">
-          <EqualBill />
-        </Navbar.Link>
-        <Navbar.Link className="hover:bg-transparent">
-          <ProportionalBill />
-        </Navbar.Link>
         <Navbar.Link className="hover:bg-transparent">
           <SettingsModal />
         </Navbar.Link>

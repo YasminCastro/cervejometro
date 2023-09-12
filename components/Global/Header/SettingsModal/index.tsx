@@ -23,7 +23,7 @@ type Inputs = {
 
 export default function SettingsModal() {
   const [openModal, setOpenModal] = useState<string | undefined>();
-  const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
+  const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 10);
   const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", 1);
   const [tip, setTip] = useLocalStorage("tip", true);
   const [tipValue, setTipValue] = useLocalStorage("tipValue", 10);

@@ -14,20 +14,20 @@ interface IProps {
 }
 
 export default function ProportionalBill({ setOpenModal, openModal }: IProps) {
-  const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
+  const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 10);
   const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", 1);
   const [tip, setTip] = useLocalStorage("tip", true);
   const [tipValue, setTipValue] = useLocalStorage("tipValue", 10);
   const [loading, setLoading] = useState(true);
-  const [beer, setBeer] = useLocalStorage("beerTotal", 0);
-  const [beerTotal, setBeerTotal] = useState(0);
+  const [beer, setBeer] = useLocalStorage("beerCount", 0);
+  const [beerCount, setbeerCount] = useState(0);
   const [individualBills, setIndividualBills] = useState<{
     [key: string]: number;
   }>({});
   const [inputs, setInputs] = useState([{ name: "", first: 0, last: 0 }]);
 
   useEffect(() => {
-    const [beerTotalPrice] = calculateEqualBill(
+    const [beerCountPrice] = calculateEqualBill(
       beer,
       beerPrice,
       tip,
@@ -35,7 +35,7 @@ export default function ProportionalBill({ setOpenModal, openModal }: IProps) {
       totalPeople
     );
 
-    setBeerTotal(beerTotalPrice);
+    setbeerCount(beerCountPrice);
     setLoading(false);
   }, [beerPrice, totalPeople, beer, tip, tipValue]);
 
@@ -69,7 +69,7 @@ export default function ProportionalBill({ setOpenModal, openModal }: IProps) {
           <div className="space-y-6 ">
             <div>
               <p className="flex items-center">
-                Total: {<FaDollarSign />} {beerTotal}
+                Total: {<FaDollarSign />} {beerCount}
               </p>
             </div>
 

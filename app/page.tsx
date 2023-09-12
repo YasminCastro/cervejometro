@@ -8,8 +8,8 @@ import EqualBill from "@/components/EqualBill";
 import ProportionalBill from "@/components/ProportionalBill";
 
 export default function Home() {
-  const [beer, setBeer] = useLocalStorage("beerTotal", 0);
-  const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 0);
+  const [beer, setBeer] = useLocalStorage("beerCount", 0);
+  const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 10);
   const [totalPeople, settotalPeople] = useLocalStorage("totalPeople", 1);
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState<string | undefined>();

@@ -5,15 +5,15 @@ const calculateEqualBill = (
   tipPercent: number,
   totalPeople: number
 ) => {
-  let beerTotalPrice = parseFloat((beers * beerPrice).toFixed(2));
+  let beerCountPrice = parseFloat((beers * beerPrice).toFixed(2));
   if (tip) {
     const tipParsed = tipPercent / 100;
-    const totalTip = beerTotalPrice * tipParsed;
-    beerTotalPrice = parseFloat((beerTotalPrice + totalTip).toFixed(2));
+    const totalTip = beerCountPrice * tipParsed;
+    beerCountPrice = parseFloat((beerCountPrice + totalTip).toFixed(2));
   }
-  const beerDivideTotal = parseFloat((beerTotalPrice / totalPeople).toFixed(2));
+  const beerDivideTotal = parseFloat((beerCountPrice / totalPeople).toFixed(2));
 
-  return [beerTotalPrice, beerDivideTotal];
+  return [beerCountPrice, beerDivideTotal];
 };
 
 export default calculateEqualBill;
