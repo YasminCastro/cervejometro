@@ -3,23 +3,16 @@
 import { Navbar } from "flowbite-react";
 
 import { PiBeerBottleDuotone } from "react-icons/pi";
-import SettingsModal from "./SettingsModal";
 
 export default function HeaderDefault() {
   return (
-    <Navbar fluid rounded className="w-full bg-transparent  p-7">
-      <Navbar.Brand className="text-white">
+    <Navbar fluid rounded className="w-full bg-transparent p-7">
+      <Navbar.Brand className="text-white gap-2">
         <PiBeerBottleDuotone size={30} className="text-amber-300" />
         <span className=" whitespace-nowrap text-xl font-semibold">
           Cervejometro
         </span>
       </Navbar.Brand>
-      <Navbar.Toggle className="hover:bg-transparent" />
-      <Navbar.Collapse>
-        <Navbar.Link className="hover:bg-transparent">
-          <SettingsModal />
-        </Navbar.Link>
-      </Navbar.Collapse>
     </Navbar>
   );
 }
