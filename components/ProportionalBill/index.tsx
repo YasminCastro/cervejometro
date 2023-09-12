@@ -206,9 +206,6 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
               {Object.keys(proportionalTab).length > 0 && (
                 <p className="text-lg font-bold">Dividido proporcionalmente:</p>
               )}
-              {Object.entries(proportionalTab).map(([key, value]) => (
-                <div key={key}>{`${key}: R$${value}`}</div>
-              ))}
               <Table striped>
                 <Table.Head>
                   <Table.HeadCell>Nome</Table.HeadCell>
