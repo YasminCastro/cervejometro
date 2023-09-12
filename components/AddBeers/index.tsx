@@ -3,10 +3,10 @@
 import { Button } from "flowbite-react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
-import localStorageValue from "@/lib/localStorageValue";
+import { useLocalStorageValues } from "@/lib/localStorageValues";
 
 export default function AddBeers() {
-  const { beer, setBeer } = localStorageValue();
+  const { beer, setBeer } = useLocalStorageValues();
 
   return (
     <div className="flex flex-col items-center gap-4 mb-10">

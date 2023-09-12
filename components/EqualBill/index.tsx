@@ -18,7 +18,7 @@ import { BsPeopleFill, BsPercent } from "react-icons/bs";
 import { PiBeerBottleDuotone } from "react-icons/pi";
 
 import calculateEqualBill from "@/lib/calculateEqualBill";
-import localStorageValue from "@/lib/localStorageValue";
+import { useLocalStorageValues } from "@/lib/localStorageValues";
 
 const LOADING_TIMEOUT = 2000;
 
@@ -45,7 +45,7 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
     setEquallyTab,
     beerTab,
     setBeerTab,
-  } = localStorageValue();
+  } = useLocalStorageValues();
 
   type Inputs = {
     totalPeople: any;

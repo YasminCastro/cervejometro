@@ -5,10 +5,10 @@ import AddBeers from "@/components/AddBeers";
 import { Button, Spinner } from "flowbite-react";
 import EqualBill from "@/components/EqualBill";
 import ProportionalBill from "@/components/ProportionalBill";
-import localStorageValue from "@/lib/localStorageValue";
+import { useLocalStorageValues } from "@/lib/localStorageValues";
 
 export default function Home() {
-  const { beer } = localStorageValue();
+  const { beer } = useLocalStorageValues();
 
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState<string | undefined>();

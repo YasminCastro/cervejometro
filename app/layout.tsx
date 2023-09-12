@@ -4,9 +4,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "@/components/Global/Header";
 import { Analytics } from "@vercel/analytics/react";
+import { LocalStorageProvider } from "@/lib/localStorageValues";
 
 const inter = Inter({ subsets: ["latin"] });
-//
 
 export const metadata: Metadata = {
   title: "Cervejometro",
@@ -22,10 +22,12 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={inter.className}>
         <main className="flex min-h-screen flex-col items-center justify-between bg-black text-white">
-          <Header />
-          {children}
-          <Footer />
-          <Analytics />
+          <LocalStorageProvider>
+            <Header />
+            {children}
+            <Footer />
+            <Analytics />
+          </LocalStorageProvider>
         </main>
       </body>
     </html>
