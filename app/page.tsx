@@ -4,8 +4,8 @@ import useLocalStorage from "use-local-storage";
 import { useEffect, useState } from "react";
 import AddBeers from "@/components/AddBeers";
 import { Button, Spinner } from "flowbite-react";
-import EqualBill from "@/components/Global/Header/EqualBill";
-import ProportionalBill from "@/components/Global/Header/ProportionalBill";
+import EqualBill from "@/components/EqualBill";
+import ProportionalBill from "@/components/ProportionalBill";
 
 export default function Home() {
   const [beer, setBeer] = useLocalStorage("beerTotal", 0);

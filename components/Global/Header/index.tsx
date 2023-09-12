@@ -5,7 +5,7 @@ import { Navbar } from "flowbite-react";
 import { PiBeerBottleDuotone } from "react-icons/pi";
 import SettingsModal from "./SettingsModal";
 import ProportionalBill from "./ProportionalBill";
-import EqualBill from "./EqualBill";
+import EqualBill from "../../EqualBill";
 
 export default function HeaderDefault() {
   return (
