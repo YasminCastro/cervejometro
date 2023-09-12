@@ -18,6 +18,10 @@ interface IValue {
   setEquallyTab: any;
   beerTab: number;
   setBeerTab: any;
+  proportionalTab: number;
+  setProportionalTab: any;
+  proportionalPeople: any[];
+  setProportionalPeople: any;
 }
 
 const LocalStorageContext = createContext({} as IValue);
@@ -25,15 +29,21 @@ const LocalStorageContext = createContext({} as IValue);
 export const LocalStorageProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
-  console.log("GETTING LOCAL STORAGE");
-
   const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 10);
   const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", 1);
   const [tip, setTip] = useLocalStorage("tip", true);
   const [tipValue, setTipValue] = useLocalStorage("tipValue", 10);
   const [beer, setBeer] = useLocalStorage("beerCount", 0);
   const [equallyTab, setEquallyTab] = useLocalStorage("equallyTab", 0);
+  const [proportionalTab, setProportionalTab] = useLocalStorage(
+    "proportionalTab",
+    0
+  );
   const [beerTab, setBeerTab] = useLocalStorage("beerTab", 0);
+  const [proportionalPeople, setProportionalPeople] = useLocalStorage(
+    "proportionalPeople",
+    [{ name: "", first: 0, last: 0 }]
+  );
 
   const value = useMemo(
     () => ({
@@ -51,6 +61,10 @@ export const LocalStorageProvider: React.FC<{ children?: React.ReactNode }> = ({
       setEquallyTab,
       beerTab,
       setBeerTab,
+      proportionalTab,
+      setProportionalTab,
+      proportionalPeople,
+      setProportionalPeople,
     }),
     [
       beerPrice,
@@ -67,6 +81,10 @@ export const LocalStorageProvider: React.FC<{ children?: React.ReactNode }> = ({
       setEquallyTab,
       beerTab,
       setBeerTab,
+      proportionalTab,
+      setProportionalTab,
+      proportionalPeople,
+      setProportionalPeople,
     ]
   );
   return (

@@ -10,7 +10,7 @@ export function calculateProportionalBill(
   beerCost: number,
   tip: boolean,
   tipPercent: number
-): { [key: string]: number } {
+) {
   let individualBills: { [key: string]: number } = {};
 
   // Inicializar contas individuais
@@ -50,5 +50,12 @@ export function calculateProportionalBill(
     }
   }
 
-  return individualBills;
+  let beerCountPrice = parseFloat((totalBeers * beerCost).toFixed(2));
+  if (tip) {
+    const tipParsed = tipPercent / 100;
+    const totalTip = beerCountPrice * tipParsed;
+    beerCountPrice = parseFloat((beerCountPrice + totalTip).toFixed(2));
+  }
+
+  return [individualBills, beerCountPrice];
 }
