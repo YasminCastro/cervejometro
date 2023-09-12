@@ -56,11 +56,9 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
   } = useLocalStorageValues();
 
   useEffect(() => {
-    if (openModal === "equalBill") {
-      const timer = setTimeout(() => setLoading(false), LOADING_TIMEOUT);
-      return () => clearTimeout(timer);
-    }
-  }, [openModal]);
+    const timer = setTimeout(() => setLoading(false), LOADING_TIMEOUT);
+    return () => clearTimeout(timer);
+  }, []);
 
   const { register, handleSubmit, setValue } = useForm<Inputs>({
     defaultValues: {
@@ -110,7 +108,6 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
       popup
       onClose={() => {
         setOpenModal(undefined);
-        setLoading(true);
       }}
     >
       <Modal.Header>Dividir conta igualmente</Modal.Header>
