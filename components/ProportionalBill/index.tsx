@@ -183,6 +183,7 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
                   color="warning"
                   onClick={() => {
                     setProportionalPeople([]);
+                    setProportionalTab(0);
                   }}
                   size="xs"
                 >
