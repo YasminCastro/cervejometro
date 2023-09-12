@@ -213,7 +213,7 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
                 </Table.Head>
                 <Table.Body className="divide-y">
                   {Object.entries(proportionalTab).map(([key, value]) => (
-                    <Table.Row>
+                    <Table.Row key={key}>
                       <Table.Cell>{key}</Table.Cell>
                       <Table.Cell>{value}</Table.Cell>
                     </Table.Row>
