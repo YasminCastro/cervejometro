@@ -62,7 +62,7 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
     }
   }, [openModal]);
 
-  const { register, handleSubmit } = useForm<Inputs>({
+  const { register, handleSubmit, setValue } = useForm<Inputs>({
     defaultValues: {
       beerPrice,
       tipValue,
@@ -71,6 +71,14 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
       beer,
     },
   });
+
+  useEffect(() => {
+    setValue("beer", beer);
+    setValue("beerPrice", beerPrice);
+    setValue("totalPeople", totalPeople);
+    setValue("tip", tip);
+    setValue("tipValue", tipValue);
+  }, [beer, beerPrice, totalPeople, tip, tipValue, setValue]);
 
   const onSubmit: SubmitHandler<Inputs> = ({
     totalPeople,
@@ -121,7 +129,6 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
                 required
                 type="number"
                 step="0.10"
-                defaultValue={beerPrice}
                 {...register("beerPrice")}
               />
             </div>
@@ -130,7 +137,6 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
               <div className="flex items-center gap-2 mb-2">
                 <Checkbox
                   id="tip"
-                  defaultChecked={tip}
                   {...register("tip")}
                   onClick={() => {
                     setTip(!tip);
@@ -144,7 +150,6 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
                   id="tipValue"
                   required
                   type="number"
-                  defaultValue={tipValue}
                   min={1}
                   max={100}
                   {...register("tipValue")}
@@ -159,7 +164,6 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
                 id="beer"
                 required
                 type="number"
-                defaultValue={beer}
                 {...register("beer")}
               />
             </div>
@@ -171,7 +175,6 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
                 id="totalPeople"
                 required
                 type="number"
-                defaultValue={totalPeople}
                 {...register("totalPeople")}
                 min={1}
               />
