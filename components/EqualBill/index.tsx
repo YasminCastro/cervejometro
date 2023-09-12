@@ -27,6 +27,14 @@ interface IProps {
   openModal: string | undefined;
 }
 
+type Inputs = {
+  totalPeople: any;
+  beerPrice: any;
+  tipValue: any;
+  tip: any;
+  beer: any;
+};
+
 export default function EqualBill({ setOpenModal, openModal }: IProps) {
   const [loading, setLoading] = useState(true);
 
@@ -47,18 +55,9 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
     setBeerTab,
   } = useLocalStorageValues();
 
-  type Inputs = {
-    totalPeople: any;
-    beerPrice: any;
-    tipValue: any;
-    tip: any;
-    beer: any;
-  };
-
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, LOADING_TIMEOUT);
+    const timer = setTimeout(() => setLoading(false), LOADING_TIMEOUT);
+    return () => clearTimeout(timer);
   }, []);
 
   const { register, handleSubmit } = useForm<Inputs>({
