@@ -18,7 +18,7 @@ export default function Home() {
   }, [beer]);
 
   return (
-    <div className="h-[60vh]">
+    <div className="h-[50vh]">
       {loading ? (
         <Spinner aria-label="Warning spinner example" color="warning" />
       ) : (
