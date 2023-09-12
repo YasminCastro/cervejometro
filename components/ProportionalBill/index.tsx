@@ -171,12 +171,23 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
               />
             </div>
 
-            <div className="mt-2">
-              <div className="flex items-center gap-2">
-                <Label value="Pessoas" className="font-bold text-lg" />
-                <Tooltip content="Preencha com o nome da pessoa, o número da primeira ceveja que ela bebeu e o número da última cerveja que ela bebeu.">
-                  <BiInfoCircle className="cursor-pointer" size={24} />
-                </Tooltip>
+            <div className="my-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Label value="Pessoas" className="font-bold text-lg" />
+                  <Tooltip content="Preencha com o nome da pessoa, o número da primeira ceveja que ela bebeu e o número da última cerveja que ela bebeu.">
+                    <BiInfoCircle className="cursor-pointer" size={24} />
+                  </Tooltip>
+                </div>
+                <Button
+                  color="warning"
+                  onClick={() => {
+                    setProportionalPeople([]);
+                  }}
+                  size="xs"
+                >
+                  Resetar
+                </Button>
               </div>
               {proportionalPeople.map((input, index) => (
                 <PersonsForm
@@ -188,7 +199,7 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
               ))}
             </div>
 
-            <div className="flex justify-around max-sm:flex-col max-sm:gap-2">
+            <div className="flex justify-around max-sm:flex-col max-sm:gap-2 ">
               <Button color="warning" onClick={handleAddInput}>
                 Adicionar pessoa
               </Button>
