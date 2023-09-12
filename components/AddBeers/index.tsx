@@ -2,12 +2,11 @@
 
 import { Button } from "flowbite-react";
 import { FaMinus, FaPlus } from "react-icons/fa";
-import useLocalStorage from "use-local-storage";
 
-interface IProps {}
+import localStorageValue from "@/lib/localStorageValue";
 
-export default function AddBeers({}: IProps) {
-  const [beer, setBeer] = useLocalStorage("beerCount", 0);
+export default function AddBeers() {
+  const { beer, setBeer } = localStorageValue();
 
   return (
     <div className="flex flex-col items-center gap-4 mb-10">

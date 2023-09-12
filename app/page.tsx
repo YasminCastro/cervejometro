@@ -1,16 +1,15 @@
 "use client";
 
-import useLocalStorage from "use-local-storage";
 import { useEffect, useState } from "react";
 import AddBeers from "@/components/AddBeers";
 import { Button, Spinner } from "flowbite-react";
 import EqualBill from "@/components/EqualBill";
 import ProportionalBill from "@/components/ProportionalBill";
+import localStorageValue from "@/lib/localStorageValue";
 
 export default function Home() {
-  const [beer, setBeer] = useLocalStorage("beerCount", 0);
-  const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 10);
-  const [totalPeople, settotalPeople] = useLocalStorage("totalPeople", 1);
+  const { beer } = localStorageValue();
+
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState<string | undefined>();
 

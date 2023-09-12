@@ -1,5 +1,7 @@
 "use client";
 
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+
 import {
   Button,
   Checkbox,
@@ -8,13 +10,17 @@ import {
   Spinner,
   TextInput,
 } from "flowbite-react";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { FaDollarSign } from "react-icons/fa";
-import useLocalStorage from "use-local-storage";
-import calculateEqualBill from "@/lib/calculateEqualBill";
-import { BsPeopleFill, BsPercent } from "react-icons/bs";
+
 import { SubmitHandler, useForm } from "react-hook-form";
+
+import { FaDollarSign } from "react-icons/fa";
+import { BsPeopleFill, BsPercent } from "react-icons/bs";
 import { PiBeerBottleDuotone } from "react-icons/pi";
+
+import calculateEqualBill from "@/lib/calculateEqualBill";
+import localStorageValue from "@/lib/localStorageValue";
+
+const LOADING_TIMEOUT = 2000;
 
 interface IProps {
   setOpenModal: Dispatch<SetStateAction<string | undefined>>;
@@ -22,15 +28,24 @@ interface IProps {
 }
 
 export default function EqualBill({ setOpenModal, openModal }: IProps) {
-  const [beerPrice, setBeerPrice] = useLocalStorage("beerPrice", 10);
-  const [totalPeople, setTotalPeople] = useLocalStorage("totalPeople", 1);
-  const [tip, setTip] = useLocalStorage("tip", true);
-  const [tipValue, setTipValue] = useLocalStorage("tipValue", 10);
   const [loading, setLoading] = useState(true);
-  const [beer, setBeer] = useLocalStorage("beerCount", 0);
 
-  const [equallyTab, setEquallyTab] = useLocalStorage("equallyTab", 0);
-  const [beerTab, setBeerTab] = useLocalStorage("beerTab", 0);
+  const {
+    beerPrice,
+    setBeerPrice,
+    totalPeople,
+    setTotalPeople,
+    tip,
+    setTip,
+    tipValue,
+    setTipValue,
+    beer,
+    setBeer,
+    equallyTab,
+    setEquallyTab,
+    beerTab,
+    setBeerTab,
+  } = localStorageValue();
 
   type Inputs = {
     totalPeople: any;
@@ -42,9 +57,8 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
 
   useEffect(() => {
     setTimeout(() => {
-      console.log("aqui");
       setLoading(false);
-    }, 2000);
+    }, LOADING_TIMEOUT);
   }, []);
 
   const { register, handleSubmit } = useForm<Inputs>({
