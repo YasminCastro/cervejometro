@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import {
+  Alert,
   Button,
   Checkbox,
   Label,
@@ -18,10 +19,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { FaDollarSign } from "react-icons/fa";
 import { BsPercent } from "react-icons/bs";
 import { PiBeerBottleDuotone } from "react-icons/pi";
+import { BiInfoCircle, BiLastPage } from "react-icons/bi";
 
 import { useLocalStorageValues } from "@/lib/localStorageValues";
 import PersonsForm from "./PersonForm";
-import { BiInfoCircle } from "react-icons/bi";
 import { calculateProportionalBill } from "@/lib/calculateProportionalBill";
 
 const LOADING_TIMEOUT = 2000;
@@ -41,6 +42,7 @@ type Inputs = {
 
 export default function EqualBill({ setOpenModal, openModal }: IProps) {
   const [loading, setLoading] = useState(true);
+  const [showAlert, setShowAlert] = useState(true);
 
   const {
     beerPrice,
@@ -108,6 +110,15 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
     setBeerTab(beerCountPrice);
   };
 
+  const onSetLast = () => {
+    let newProportionalPeople = proportionalPeople.map((person) => ({
+      ...person,
+      last: beer,
+    }));
+
+    setProportionalPeople(newProportionalPeople);
+  };
+
   return (
     <Modal
       show={openModal === "proportionalBill"}
@@ -122,6 +133,15 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
         </Modal.Body>
       ) : (
         <Modal.Body>
+          {showAlert && (
+            <Alert color="info" onDismiss={() => setShowAlert(false)}>
+              <p>
+                Por favor, clique no botão <b>Calcular</b> para salvar as
+                informações inseridas.
+              </p>
+            </Alert>
+          )}
+
           <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <Label htmlFor="price" value="Valor da cerveja" />
@@ -162,6 +182,7 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
 
             <div>
               <Label htmlFor="beer" value="Qtd de cervejas" />
+
               <TextInput
                 icon={PiBeerBottleDuotone}
                 id="beer"
@@ -175,20 +196,30 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Label value="Pessoas" className="font-bold text-lg" />
-                  <Tooltip content="Preencha com o nome da pessoa, o número da primeira ceveja que ela bebeu e o número da última cerveja que ela bebeu.">
+                  <Tooltip content="Informe o nome da pessoa, o número da primeira e da última cerveja que ela consumiu.">
                     <BiInfoCircle className="cursor-pointer" size={24} />
                   </Tooltip>
                 </div>
-                <Button
-                  color="warning"
-                  onClick={() => {
-                    setProportionalPeople([]);
-                    setProportionalTab(0);
-                  }}
-                  size="xs"
-                >
-                  Resetar
-                </Button>
+                <div className="flex items-center gap-1">
+                  <Tooltip content="Clique para atualizar a última cerveja de todos para a mais recente na contagem.">
+                    <BiLastPage
+                      className="cursor-pointer"
+                      onClick={onSetLast}
+                      size={24}
+                    />
+                  </Tooltip>
+
+                  <Button
+                    color="warning"
+                    onClick={() => {
+                      setProportionalPeople([]);
+                      setProportionalTab(0);
+                    }}
+                    size="xs"
+                  >
+                    Resetar
+                  </Button>
+                </div>
               </div>
               {proportionalPeople.map((input, index) => (
                 <PersonsForm
