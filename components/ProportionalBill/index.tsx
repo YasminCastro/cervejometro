@@ -62,7 +62,7 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
   const handleAddInput = () => {
     setProportionalPeople([
       ...proportionalPeople,
-      { name: "", first: 0, last: 0 },
+      { name: "", first: 1, last: beer },
     ]);
   };
 
