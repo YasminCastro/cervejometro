@@ -64,7 +64,7 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
   const handleAddInput = () => {
     setProportionalPeople([
       ...proportionalPeople,
-      { name: "", first: 1, last: beer },
+      { name: "", first: 1, last: beer, paid: false },
     ]);
   };
 
@@ -255,16 +255,42 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
                 <Table.Head>
                   <Table.HeadCell>Nome</Table.HeadCell>
                   <Table.HeadCell>Valor</Table.HeadCell>
+                  <Table.HeadCell>Pagou</Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
-                  {Object.entries(proportionalTab).map(([key, value]) => (
-                    <Table.Row key={key}>
-                      <Table.Cell>{key}</Table.Cell>
-                      <Table.Cell className="flex items-center">
-                        {<FaDollarSign />} {value}
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
+                  {Object.entries(proportionalTab).map(([key, value]) => {
+                    const personInfo = proportionalPeople.find(
+                      (person) => person.name === key
+                    );
+
+                    return (
+                      <Table.Row key={key}>
+                        <Table.Cell>{key}</Table.Cell>
+                        <Table.Cell className="flex items-center">
+                          {<FaDollarSign />} {value}
+                        </Table.Cell>
+                        <Table.Cell>
+                          <Checkbox
+                            className="checked:bg-amber-500"
+                            defaultChecked={personInfo.paid || false}
+                            onClick={() => {
+                              const index = proportionalPeople.findIndex(
+                                (person) => person.name === key
+                              );
+
+                              const updatedPeople = [...proportionalPeople];
+                              updatedPeople[index] = {
+                                ...updatedPeople[index],
+                                paid: !updatedPeople[index].paid,
+                              };
+
+                              setProportionalPeople(updatedPeople);
+                            }}
+                          />
+                        </Table.Cell>
+                      </Table.Row>
+                    );
+                  })}
                 </Table.Body>
               </Table>
             </div>

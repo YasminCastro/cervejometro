@@ -1,5 +1,6 @@
 "use client";
 
+import { IProportionalPeople } from "@/interface/proportionalPeople";
 import { Label, TextInput } from "flowbite-react";
 import { Dispatch, SetStateAction } from "react";
 
@@ -7,7 +8,7 @@ import { BiDuplicate, BiXCircle } from "react-icons/bi";
 
 interface IProps {
   index: number;
-  proportionalPeople: any[];
+  proportionalPeople: IProportionalPeople[];
   setProportionalPeople: Dispatch<SetStateAction<any[]>>;
 }
 
@@ -29,6 +30,7 @@ export default function PersonsForm({
         name: `${proportionalPeople[index].name} copia`,
         first: proportionalPeople[index].first,
         last: proportionalPeople[index].last,
+        paid: false,
       },
     ]);
   };

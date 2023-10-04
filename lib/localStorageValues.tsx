@@ -42,7 +42,7 @@ export const LocalStorageProvider: React.FC<{ children?: React.ReactNode }> = ({
   const [beerTab, setBeerTab] = useLocalStorage("beerTab", 0);
   const [proportionalPeople, setProportionalPeople] = useLocalStorage(
     "proportionalPeople",
-    [{ name: "", first: 0, last: 0 }]
+    [{ name: "", first: 0, last: 0, paid: false }]
   );
 
   const value = useMemo(
