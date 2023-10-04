@@ -35,7 +35,7 @@ export const LocalStorageProvider: React.FC<{ children?: React.ReactNode }> = ({
   const [tipValue, setTipValue] = useLocalStorage("tipValue", 10);
   const [beer, setBeer] = useLocalStorage("beerCount", 0);
   const [equallyTab, setEquallyTab] = useLocalStorage("equallyTab", 0);
-  const [proportionalTab, setProportionalTab] = useLocalStorage(
+  const [proportionalTab, setProportionalTab] = useLocalStorage<any>(
     "proportionalTab",
     0
   );

@@ -43,6 +43,7 @@ type Inputs = {
 export default function EqualBill({ setOpenModal, openModal }: IProps) {
   const [loading, setLoading] = useState(true);
   const [showAlert, setShowAlert] = useState(true);
+  const [sortOrder, setSortOrder] = useState("asc");
 
   const {
     beerPrice,
@@ -255,42 +256,58 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
                 <Table.Head>
                   <Table.HeadCell>Nome</Table.HeadCell>
                   <Table.HeadCell>Valor</Table.HeadCell>
-                  <Table.HeadCell>Pagou</Table.HeadCell>
+                  <Table.HeadCell
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setSortOrder((prevOrder) =>
+                        prevOrder === "asc" ? "desc" : "asc"
+                      );
+                    }}
+                  >
+                    Pagou
+                  </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
-                  {Object.entries(proportionalTab).map(([key, value]) => {
-                    const personInfo = proportionalPeople.find(
-                      (person) => person.name === key
-                    );
+                  {
+                    // Primeiro, ordenamos o array proportionalPeople com base no campo 'paid'
+                    [...proportionalPeople]
+                      .sort((a, b) => {
+                        const comparison = b.paid - a.paid;
+                        return sortOrder === "asc" ? comparison : -comparison;
+                      })
+                      .map((person) => {
+                        //@ts-ignore
+                        const value = proportionalTab[person.name];
 
-                    return (
-                      <Table.Row key={key}>
-                        <Table.Cell>{key}</Table.Cell>
-                        <Table.Cell className="flex items-center">
-                          {<FaDollarSign />} {value}
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Checkbox
-                            className="checked:bg-amber-500"
-                            defaultChecked={personInfo.paid || false}
-                            onClick={() => {
-                              const index = proportionalPeople.findIndex(
-                                (person) => person.name === key
-                              );
+                        return (
+                          <Table.Row key={person.name}>
+                            <Table.Cell>{person.name}</Table.Cell>
+                            <Table.Cell className="flex items-center">
+                              {<FaDollarSign />} {value}
+                            </Table.Cell>
+                            <Table.Cell>
+                              <Checkbox
+                                className="checked:bg-amber-500"
+                                defaultChecked={person.paid || false}
+                                onClick={() => {
+                                  const index = proportionalPeople.findIndex(
+                                    (p) => p.name === person.name
+                                  );
 
-                              const updatedPeople = [...proportionalPeople];
-                              updatedPeople[index] = {
-                                ...updatedPeople[index],
-                                paid: !updatedPeople[index].paid,
-                              };
+                                  const updatedPeople = [...proportionalPeople];
+                                  updatedPeople[index] = {
+                                    ...updatedPeople[index],
+                                    paid: !updatedPeople[index].paid,
+                                  };
 
-                              setProportionalPeople(updatedPeople);
-                            }}
-                          />
-                        </Table.Cell>
-                      </Table.Row>
-                    );
-                  })}
+                                  setProportionalPeople(updatedPeople);
+                                }}
+                              />
+                            </Table.Cell>
+                          </Table.Row>
+                        );
+                      })
+                  }
                 </Table.Body>
               </Table>
             </div>
