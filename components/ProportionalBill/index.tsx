@@ -29,7 +29,6 @@ type Inputs = {
 };
 
 export default function ProportionalBill() {
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const resultRef = useRef<HTMLDivElement>(null);
   const shouldScrollRef = useRef<boolean>(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -336,23 +335,16 @@ export default function ProportionalBill() {
                   <TableRow>
                     <TableHead>Nome</TableHead>
                     <TableHead>Valor</TableHead>
-                    <TableHead
-                      className="cursor-pointer"
-                      onClick={() => {
-                        setSortOrder((prevOrder) =>
-                          prevOrder === "asc" ? "desc" : "asc"
-                        );
-                      }}
-                    >
-                      Pagou
-                    </TableHead>
+                    <TableHead>Pagou</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {[...proportionalPeople]
                     .sort((a, b) => {
-                      const comparison = Number(b.paid) - Number(a.paid);
-                      return sortOrder === "asc" ? comparison : -comparison;
+                      // Ordenação alfabética por nome
+                      return a.name.localeCompare(b.name, "pt-BR", {
+                        sensitivity: "base",
+                      });
                     })
                     .map((person) => {
                       const value = (proportionalTab as any)[person.name];
@@ -454,19 +446,26 @@ export default function ProportionalBill() {
                             <span>{serviceValue.toFixed(2)}</span>
                           </div>
                         )}
-                        {paidPeople.map((person) => {
-                          const personValue =
-                            (proportionalTab as any)[person.name] || 0;
-                          return (
-                            <div
-                              key={person.name}
-                              className="flex justify-between"
-                            >
-                              <span>{person.name}:</span>
-                              <span>-{personValue.toFixed(2)}</span>
-                            </div>
-                          );
-                        })}
+                        {paidPeople
+                          .sort((a, b) => {
+                            // Ordenação alfabética por nome
+                            return a.name.localeCompare(b.name, "pt-BR", {
+                              sensitivity: "base",
+                            });
+                          })
+                          .map((person) => {
+                            const personValue =
+                              (proportionalTab as any)[person.name] || 0;
+                            return (
+                              <div
+                                key={person.name}
+                                className="flex justify-between"
+                              >
+                                <span>{person.name}:</span>
+                                <span>-{personValue.toFixed(2)}</span>
+                              </div>
+                            );
+                          })}
                       </div>
 
                       {/* Separador */}
