@@ -341,7 +341,6 @@ export default function ProportionalBill() {
                 <TableBody>
                   {[...proportionalPeople]
                     .sort((a, b) => {
-                      // Ordenação alfabética por nome
                       return a.name.localeCompare(b.name, "pt-BR", {
                         sensitivity: "base",
                       });
@@ -420,7 +419,6 @@ export default function ProportionalBill() {
                     ? parseFloat((subtotal * (tipValue / 100)).toFixed(2))
                     : 0;
 
-                  // Listar pessoas que pagaram e calcular o total já pago
                   const paidPeople = proportionalPeople.filter(
                     (person) => person.paid
                   );
@@ -430,7 +428,6 @@ export default function ProportionalBill() {
                     return sum + personValue;
                   }, 0);
 
-                  // Total que falta pagar
                   const remainingTotal = beerTab - totalPaid;
 
                   return (
@@ -448,7 +445,6 @@ export default function ProportionalBill() {
                         )}
                         {paidPeople
                           .sort((a, b) => {
-                            // Ordenação alfabética por nome
                             return a.name.localeCompare(b.name, "pt-BR", {
                               sensitivity: "base",
                             });
