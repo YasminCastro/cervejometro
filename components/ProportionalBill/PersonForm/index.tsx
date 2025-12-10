@@ -3,8 +3,14 @@
 import { IProportionalPeople } from "@/interface/proportionalPeople";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { Dispatch, SetStateAction } from "react";
-import { BiDuplicate, BiXCircle } from "react-icons/bi";
+import { BiDuplicate, BiXCircle, BiChevronDown } from "react-icons/bi";
 import { Button } from "@/components/ui/button";
 
 interface IProps {
@@ -32,6 +38,7 @@ export default function PersonsForm({
         first: proportionalPeople[index].first,
         last: proportionalPeople[index].last,
         paid: false,
+        stopped: false,
       },
     ]);
   };
@@ -54,16 +61,46 @@ export default function PersonsForm({
     setProportionalPeople(newInputs);
   };
 
+  const handleStoppedChange = (index: number, checked: boolean) => {
+    const newInputs = [...proportionalPeople];
+    newInputs[index].stopped = checked;
+    setProportionalPeople(newInputs);
+  };
+
+  const isPaid = proportionalPeople[index].paid || false;
+  const isDisabled = isPaid;
+
   return (
-    <div className="rounded bg-slate-100 dark:bg-slate-800 p-2 mt-3">
-      <div className="flex items-center justify-between mb-2">
-        <Label htmlFor={`name-${index}`}>Nome</Label>
+    <Collapsible
+      defaultOpen={!isPaid}
+      className="rounded-lg border border-border bg-card p-4 mt-3 shadow-sm"
+    >
+      <div className="flex items-center justify-between w-full">
+        <CollapsibleTrigger asChild className="flex-1 cursor-pointer">
+          <div className="flex items-center gap-2">
+            <BiChevronDown className="h-5 w-5 text-muted-foreground transition-transform duration-200 data-[state=closed]:-rotate-90" />
+            <Label
+              htmlFor={`name-${index}`}
+              className={
+                isPaid ? "font-semibold cursor-pointer" : "cursor-pointer"
+              }
+            >
+              {proportionalPeople[index].name || "Sem nome"}
+            </Label>
+            {isPaid && (
+              <span className="text-xs text-muted-foreground">(Pago)</span>
+            )}
+          </div>
+        </CollapsibleTrigger>
         <div className="flex gap-3">
           <Button
             type="button"
             variant="ghost"
             size="icon"
-            onClick={() => handleDuplicateInput(index)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDuplicateInput(index);
+            }}
           >
             <BiDuplicate className="h-5 w-5" />
           </Button>
@@ -72,47 +109,75 @@ export default function PersonsForm({
             type="button"
             variant="ghost"
             size="icon"
-            onClick={() => handleRemoveInput(index)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleRemoveInput(index);
+            }}
           >
             <BiXCircle className="h-5 w-5" />
           </Button>
         </div>
       </div>
-      <div className="flex items-center gap-3">
-        <Input
-          id={`name-${index}`}
-          required
-          type="text"
-          className="w-full"
-          onChange={(e) => handleNameChange(index, e)}
-          value={proportionalPeople[index].name}
-        />
-      </div>
-      <div className="flex gap-2 mt-3">
-        <div className="flex-1">
-          <Label htmlFor={`first-${index}`}>Primeira</Label>
-          <Input
-            id={`first-${index}`}
-            required
-            type="number"
-            min={1}
-            onChange={(e) => handleFirstChange(index, e)}
-            value={proportionalPeople[index].first}
-          />
+      <CollapsibleContent>
+        <div className="mt-3 space-y-4">
+          <div className="space-y-3">
+            <Label htmlFor={`name-${index}`}>Nome</Label>
+            <Input
+              id={`name-${index}`}
+              required
+              type="text"
+              className="w-full"
+              onChange={(e) => handleNameChange(index, e)}
+              value={proportionalPeople[index].name}
+              disabled={isDisabled}
+            />
+          </div>
+          <div className="flex gap-2">
+            <div className="flex-1 space-y-3">
+              <Label htmlFor={`first-${index}`}>Primeira</Label>
+              <Input
+                id={`first-${index}`}
+                required
+                type="number"
+                min={1}
+                onChange={(e) => handleFirstChange(index, e)}
+                value={proportionalPeople[index].first}
+                disabled={isDisabled}
+              />
+            </div>
+            <div className="flex-1 space-y-3">
+              <Label htmlFor={`last-${index}`}>Última</Label>
+              <Input
+                id={`last-${index}`}
+                required
+                type="number"
+                min={1}
+                onChange={(e) => handleLastChange(index, e)}
+                value={proportionalPeople[index].last}
+                disabled={isDisabled || proportionalPeople[index].stopped}
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id={`stopped-${index}`}
+              checked={proportionalPeople[index].stopped || false}
+              onCheckedChange={(checked) =>
+                handleStoppedChange(index, checked as boolean)
+              }
+              disabled={isDisabled}
+            />
+            <Label
+              htmlFor={`stopped-${index}`}
+              className={`cursor-pointer text-sm ${
+                isDisabled ? "cursor-not-allowed opacity-50" : ""
+              }`}
+            >
+              Parou de beber
+            </Label>
+          </div>
         </div>
-        <div className="flex-1">
-          <Label htmlFor={`last-${index}`}>Ultima</Label>
-          <Input
-            id={`last-${index}`}
-            required
-            type="number"
-            min={1}
-            onChange={(e) => handleLastChange(index, e)}
-            value={proportionalPeople[index].last}
-          />
-        </div>
-      </div>
-    </div>
+      </CollapsibleContent>
+    </Collapsible>
   );
 }
-

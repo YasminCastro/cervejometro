@@ -3,5 +3,5 @@ export interface IProportionalPeople {
   first: any;
   last: any;
   paid: boolean;
+  stopped: boolean;
 }
-

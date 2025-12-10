@@ -23,7 +23,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <main className="flex min-h-screen flex-col items-center justify-between bg-black text-white">
           <LocalStorageProvider>
-            <Header />
             {children}
             <Footer />
             <Analytics />
