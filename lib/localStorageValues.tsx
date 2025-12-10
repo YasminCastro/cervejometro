@@ -18,7 +18,7 @@ interface IValue {
   setEquallyTab: any;
   beerTab: number;
   setBeerTab: any;
-  proportionalTab: number;
+  proportionalTab: any;
   setProportionalTab: any;
   proportionalPeople: any[];
   setProportionalPeople: any;

@@ -17,3 +17,4 @@ const calculateEqualBill = (
 };
 
 export default calculateEqualBill;
+

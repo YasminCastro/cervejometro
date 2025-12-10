@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import AddBeers from "@/components/AddBeers";
-import { Button, Spinner } from "flowbite-react";
+import { Button } from "@/components/ui/button";
 import EqualBill from "@/components/EqualBill";
 import ProportionalBill from "@/components/ProportionalBill";
 import { useLocalStorageValues } from "@/lib/localStorageValues";
+import { Loader2 } from "lucide-react";
 
 export default function Home() {
   const { beer } = useLocalStorageValues();
@@ -18,29 +19,31 @@ export default function Home() {
   }, [beer]);
 
   return (
-    <div className="h-[50vh]">
+    <div className="h-[50vh] w-full">
       {loading ? (
-        <Spinner aria-label="Warning spinner example" color="warning" />
+        <div className="flex justify-center items-center h-full">
+          <Loader2 className="h-8 w-8 animate-spin text-amber-500" />
+        </div>
       ) : (
         <div className="flex flex-col justify-between h-full">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center gap-4">
             <h2 className="text-lg font-bold">Dividir conta</h2>
-            <Button.Group outline>
+            <div className="flex gap-2">
               <Button
-                color="warning"
+                variant="warning"
                 size="sm"
                 onClick={() => setOpenModal("equalBill")}
               >
                 Igualmente
               </Button>
               <Button
-                color="warning"
+                variant="warning"
                 size="sm"
                 onClick={() => setOpenModal("proportionalBill")}
               >
                 Proporcionalmente
               </Button>
-            </Button.Group>
+            </div>
           </div>
 
           <AddBeers />

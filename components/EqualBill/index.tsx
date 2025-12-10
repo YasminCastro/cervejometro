@@ -1,24 +1,23 @@
 "use client";
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-
 import {
-  Button,
-  Checkbox,
-  Label,
-  Modal,
-  Spinner,
-  TextInput,
-} from "flowbite-react";
-
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { SubmitHandler, useForm } from "react-hook-form";
-
 import { FaDollarSign } from "react-icons/fa";
 import { BsPeopleFill, BsPercent } from "react-icons/bs";
 import { PiBeerBottleDuotone } from "react-icons/pi";
-
 import calculateEqualBill from "@/lib/calculateEqualBill";
 import { useLocalStorageValues } from "@/lib/localStorageValues";
+import { Loader2 } from "lucide-react";
 
 const LOADING_TIMEOUT = 2000;
 
@@ -102,98 +101,113 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
   };
 
   return (
-    <Modal
-      show={openModal === "equalBill"}
-      size="xl"
-      popup
-      onClose={() => {
-        setOpenModal(undefined);
+    <Dialog
+      open={openModal === "equalBill"}
+      onOpenChange={(open) => {
+        if (!open) setOpenModal(undefined);
       }}
     >
-      <Modal.Header>Dividir conta igualmente</Modal.Header>
-      {loading ? (
-        <Modal.Body className="flex justify-center">
-          <Spinner aria-label="Spinner" color="warning" size="lg" />
-        </Modal.Body>
-      ) : (
-        <Modal.Body>
+      <DialogContent className="max-w-xl">
+        <DialogHeader>
+          <DialogTitle>Dividir conta igualmente</DialogTitle>
+        </DialogHeader>
+        {loading ? (
+          <div className="flex justify-center py-8">
+            <Loader2 className="h-8 w-8 animate-spin text-amber-500" />
+          </div>
+        ) : (
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            <div>
-              <Label htmlFor="price" value="Valor da cerveja" />
-              <TextInput
-                icon={FaDollarSign}
-                id="price"
-                required
-                type="number"
-                step="0.10"
-                {...register("beerPrice")}
-              />
-            </div>
-
-            <div className="flex justify-between">
-              <div className="flex items-center gap-2 mb-2">
-                <Checkbox
-                  id="tip"
-                  {...register("tip")}
-                  onClick={() => {
-                    setTip(!tip);
-                  }}
-                />
-                <Label htmlFor="tip">Calcular %?</Label>
-              </div>
-              {tip && (
-                <TextInput
-                  rightIcon={BsPercent}
-                  id="tipValue"
+            <div className="space-y-2">
+              <Label htmlFor="price">Valor da cerveja</Label>
+              <div className="relative">
+                <FaDollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  id="price"
                   required
                   type="number"
-                  min={1}
-                  max={100}
-                  {...register("tipValue")}
+                  step="0.10"
+                  className="pl-8"
+                  {...register("beerPrice")}
                 />
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  id="tip"
+                  checked={tip}
+                  onCheckedChange={(checked) => {
+                    setTip(checked as boolean);
+                  }}
+                />
+                <Label htmlFor="tip" className="cursor-pointer">
+                  Calcular %?
+                </Label>
+              </div>
+              {tip && (
+                <div className="relative w-32">
+                  <Input
+                    id="tipValue"
+                    required
+                    type="number"
+                    min={1}
+                    max={100}
+                    className="pr-8"
+                    {...register("tipValue")}
+                  />
+                  <BsPercent className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                </div>
               )}
             </div>
 
-            <div>
-              <Label htmlFor="beer" value="Qtd de cervejas" />
-              <TextInput
-                icon={PiBeerBottleDuotone}
-                id="beer"
-                required
-                type="number"
-                {...register("beer")}
-              />
+            <div className="space-y-2">
+              <Label htmlFor="beer">Qtd de cervejas</Label>
+              <div className="relative">
+                <PiBeerBottleDuotone className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  id="beer"
+                  required
+                  type="number"
+                  className="pl-8"
+                  {...register("beer")}
+                />
+              </div>
             </div>
 
-            <div>
-              <Label htmlFor="totalPeople" value="Qtd. de pessoas" />
-              <TextInput
-                icon={BsPeopleFill}
-                id="totalPeople"
-                required
-                type="number"
-                {...register("totalPeople")}
-                min={1}
-              />
+            <div className="space-y-2">
+              <Label htmlFor="totalPeople">Qtd. de pessoas</Label>
+              <div className="relative">
+                <BsPeopleFill className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  id="totalPeople"
+                  required
+                  type="number"
+                  className="pl-8"
+                  min={1}
+                  {...register("totalPeople")}
+                />
+              </div>
             </div>
 
-            <Button type="submit" color="warning">
+            <Button type="submit" variant="warning" className="w-full">
               Calcular
             </Button>
           </form>
-          {beerTab !== 0 && (
-            <div className="mt-4">
-              <p className="flex items-center">
-                Total: {<FaDollarSign />} {beerTab}
-              </p>
-              <p className="flex items-center">
-                Dividido por {totalPeople} pessoas: {<FaDollarSign />}
-                {equallyTab}
-              </p>
-            </div>
-          )}
-        </Modal.Body>
-      )}
-    </Modal>
+        )}
+        {beerTab !== 0 && !loading && (
+          <div className="mt-4 space-y-2">
+            <p className="flex items-center gap-2">
+              Total: <FaDollarSign /> {beerTab}
+            </p>
+            <p className="flex items-center gap-2">
+              Dividido por {totalPeople} pessoas: <FaDollarSign />
+              {equallyTab}
+            </p>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
   );
 }
+

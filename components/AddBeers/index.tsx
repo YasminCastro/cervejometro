@@ -1,8 +1,7 @@
 "use client";
 
-import { Button } from "flowbite-react";
+import { Button } from "@/components/ui/button";
 import { FaMinus, FaPlus } from "react-icons/fa";
-
 import { useLocalStorageValues } from "@/lib/localStorageValues";
 
 export default function AddBeers() {
@@ -10,11 +9,11 @@ export default function AddBeers() {
 
   return (
     <div className="flex flex-col items-center gap-4 mb-10">
-      <p className="text-4xl bold">{beer}</p>
+      <p className="text-4xl font-bold">{beer}</p>
 
-      <Button.Group>
+      <div className="flex gap-2">
         <Button
-          color="warning"
+          variant="warning"
           size="xl"
           onClick={() => {
             setBeer(beer - 1);
@@ -23,7 +22,7 @@ export default function AddBeers() {
           <FaMinus />
         </Button>
         <Button
-          color="warning"
+          variant="warning"
           size="xl"
           onClick={() => {
             setBeer(beer + 1);
@@ -31,9 +30,9 @@ export default function AddBeers() {
         >
           <FaPlus />
         </Button>
-      </Button.Group>
+      </div>
       <Button
-        color="warning"
+        variant="warning"
         size="sm"
         onClick={() => {
           setBeer(0);
@@ -44,3 +43,4 @@ export default function AddBeers() {
     </div>
   );
 }
+

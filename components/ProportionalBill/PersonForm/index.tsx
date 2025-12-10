@@ -1,10 +1,11 @@
 "use client";
 
 import { IProportionalPeople } from "@/interface/proportionalPeople";
-import { Label, TextInput } from "flowbite-react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { Dispatch, SetStateAction } from "react";
-
 import { BiDuplicate, BiXCircle } from "react-icons/bi";
+import { Button } from "@/components/ui/button";
 
 interface IProps {
   index: number;
@@ -54,56 +55,59 @@ export default function PersonsForm({
   };
 
   return (
-    <div className="rounded bg-slate-100 p-2 mt-3">
+    <div className="rounded bg-slate-100 dark:bg-slate-800 p-2 mt-3">
       <div className="flex items-center justify-between mb-2">
-        <Label htmlFor="name" value="Nome" />
+        <Label htmlFor={`name-${index}`}>Nome</Label>
         <div className="flex gap-3">
-          <BiDuplicate
-            className="cursor-pointer"
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
             onClick={() => handleDuplicateInput(index)}
-            size={24}
-          />
+          >
+            <BiDuplicate className="h-5 w-5" />
+          </Button>
 
-          <BiXCircle
-            className="cursor-pointer"
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
             onClick={() => handleRemoveInput(index)}
-            size={24}
-          />
+          >
+            <BiXCircle className="h-5 w-5" />
+          </Button>
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <TextInput
-          id="name"
+        <Input
+          id={`name-${index}`}
           required
           type="text"
           className="w-full"
-          key={`${index}-name`}
           onChange={(e) => handleNameChange(index, e)}
           value={proportionalPeople[index].name}
         />
       </div>
       <div className="flex gap-2 mt-3">
-        <div>
-          <Label htmlFor="first" value="Primeira" />
-          <TextInput
-            id="first"
+        <div className="flex-1">
+          <Label htmlFor={`first-${index}`}>Primeira</Label>
+          <Input
+            id={`first-${index}`}
             required
             type="number"
-            key={`${index}-first`}
+            min={1}
             onChange={(e) => handleFirstChange(index, e)}
             value={proportionalPeople[index].first}
-            min={1}
           />
         </div>
-        <div>
-          <Label htmlFor="last" value="Ultima" />
-          <TextInput
-            id="last"
+        <div className="flex-1">
+          <Label htmlFor={`last-${index}`}>Ultima</Label>
+          <Input
+            id={`last-${index}`}
             required
             type="number"
-            key={`${index}-last`}
-            onChange={(e) => handleLastChange(index, e)}
             min={1}
+            onChange={(e) => handleLastChange(index, e)}
             value={proportionalPeople[index].last}
           />
         </div>
@@ -111,3 +115,4 @@ export default function PersonsForm({
     </div>
   );
 }
+

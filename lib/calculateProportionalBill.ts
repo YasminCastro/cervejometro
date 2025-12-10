@@ -59,3 +59,4 @@ export function calculateProportionalBill(
 
   return [individualBills, beerCountPrice];
 }
+

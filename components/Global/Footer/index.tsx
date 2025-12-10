@@ -1,15 +1,12 @@
 "use client";
 
-import { Footer } from "flowbite-react";
-
-export default function FooterDefault() {
+export default function Footer() {
   return (
-    <Footer container className="border-t border-t-gray-400 bg-transparent ">
-      <Footer.Copyright
-        by="Yas Castro™"
-        href="https://www.yascastro.com.br"
-        year={2023}
-      />
-    </Footer>
+    <footer className="w-full border-t border-gray-400 py-4">
+      <div className="text-center text-sm text-muted-foreground">
+        © {new Date().getFullYear()} Yas Castro™. Todos os direitos reservados.
+      </div>
+    </footer>
   );
 }
+

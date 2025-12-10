@@ -1,18 +1,17 @@
 "use client";
 
-import { Navbar } from "flowbite-react";
-
 import { PiBeerBottleDuotone } from "react-icons/pi";
 
-export default function HeaderDefault() {
+export default function Header() {
   return (
-    <Navbar fluid rounded className="w-full bg-transparent p-7">
-      <Navbar.Brand className="text-white gap-2">
-        <PiBeerBottleDuotone size={30} className="text-amber-300" />
-        <span className=" whitespace-nowrap text-xl font-semibold">
+    <header className="w-full p-7">
+      <div className="flex items-center gap-2">
+        <PiBeerBottleDuotone size={30} className="text-amber-500" />
+        <span className="text-xl font-semibold whitespace-nowrap">
           Cervejometro
         </span>
-      </Navbar.Brand>
-    </Navbar>
+      </div>
+    </header>
   );
 }
+
