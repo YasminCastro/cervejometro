@@ -29,15 +29,10 @@ export default function Home() {
           <div className="flex flex-col items-center gap-4">
             <h2 className="text-lg font-bold">Dividir conta</h2>
             <div className="flex gap-2">
-              <Button
-                variant="warning"
-                size="sm"
-                onClick={() => setOpenModal("equalBill")}
-              >
+              <Button size="sm" onClick={() => setOpenModal("equalBill")}>
                 Igualmente
               </Button>
               <Button
-                variant="warning"
                 size="sm"
                 onClick={() => setOpenModal("proportionalBill")}
               >

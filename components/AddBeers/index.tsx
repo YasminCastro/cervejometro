@@ -13,8 +13,6 @@ export default function AddBeers() {
 
       <div className="flex gap-2">
         <Button
-          variant="warning"
-          size="xl"
           onClick={() => {
             setBeer(beer - 1);
           }}
@@ -22,8 +20,6 @@ export default function AddBeers() {
           <FaMinus />
         </Button>
         <Button
-          variant="warning"
-          size="xl"
           onClick={() => {
             setBeer(beer + 1);
           }}
@@ -32,7 +28,6 @@ export default function AddBeers() {
         </Button>
       </div>
       <Button
-        variant="warning"
         size="sm"
         onClick={() => {
           setBeer(0);
@@ -43,4 +38,3 @@ export default function AddBeers() {
     </div>
   );
 }
-

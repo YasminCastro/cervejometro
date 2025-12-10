@@ -45,10 +45,7 @@ type Inputs = {
   beer: any;
 };
 
-export default function ProportionalBill({
-  setOpenModal,
-  openModal,
-}: IProps) {
+export default function ProportionalBill({ setOpenModal, openModal }: IProps) {
   const [loading, setLoading] = useState(true);
   const [showAlert, setShowAlert] = useState(true);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
@@ -146,7 +143,7 @@ export default function ProportionalBill({
         ) : (
           <>
             {showAlert && (
-              <Alert variant="info" className="relative pr-8">
+              <Alert className="relative pr-8">
                 <BiInfoCircle className="h-4 w-4" />
                 <AlertDescription>
                   Por favor, clique no botão <b>Calcular</b> para salvar as
@@ -157,8 +154,7 @@ export default function ProportionalBill({
                   className="absolute right-2 top-2 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                   onClick={() => setShowAlert(false)}
                 >
-                  <span className="sr-only">Close</span>
-                  ×
+                  <span className="sr-only">Close</span>×
                 </button>
               </Alert>
             )}
@@ -245,8 +241,6 @@ export default function ProportionalBill({
 
                     <Button
                       type="button"
-                      variant="warning"
-                      size="sm"
                       onClick={() => {
                         setProportionalPeople([]);
                         setProportionalTab(0);
@@ -267,12 +261,10 @@ export default function ProportionalBill({
               </div>
 
               <div className="flex justify-around max-sm:flex-col max-sm:gap-2">
-                <Button type="button" variant="warning" onClick={handleAddInput}>
+                <Button type="button" onClick={handleAddInput}>
                   Adicionar pessoa
                 </Button>
-                <Button type="submit" variant="warning">
-                  Calcular
-                </Button>
+                <Button type="submit">Calcular</Button>
               </div>
             </form>
 
@@ -351,4 +343,3 @@ export default function ProportionalBill({
     </Dialog>
   );
 }
-

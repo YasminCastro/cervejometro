@@ -190,7 +190,7 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
               </div>
             </div>
 
-            <Button type="submit" variant="warning" className="w-full">
+            <Button type="submit" className="w-full">
               Calcular
             </Button>
           </form>
@@ -210,4 +210,3 @@ export default function EqualBill({ setOpenModal, openModal }: IProps) {
     </Dialog>
   );
 }
-
